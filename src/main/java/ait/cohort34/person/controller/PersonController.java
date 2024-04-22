@@ -6,6 +6,7 @@ import ait.cohort34.person.dto.CityPopulationDto;
 import ait.cohort34.person.dto.PersonDto;
 import ait.cohort34.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
     final PersonService personService;
 
+    @Transactional
     @PostMapping
     public Boolean addPerson(@RequestBody PersonDto personDto) {
         return personService.addPerson(personDto);
@@ -29,11 +31,13 @@ public class PersonController {
         return personService.removePerson(id);
     }
 
+    @Transactional
     @PutMapping("/{id}/name/{name}")
     public PersonDto updatePersonName(@PathVariable Integer id, @PathVariable String name) {
         return personService.updatePersonName(id, name);
     }
 
+    @Transactional
     @PutMapping("/{id}/address")
     public PersonDto updatePersonAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
         return personService.updatePersonAddress(id, addressDto);

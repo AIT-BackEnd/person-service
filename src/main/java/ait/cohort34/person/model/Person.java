@@ -2,9 +2,7 @@ package ait.cohort34.person.model;
 
 import ait.cohort34.person.dto.AddressDto;
 import ait.cohort34.person.dto.PersonDto;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,6 +13,7 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode(of = "id")
 @Entity
+//@Table(name = "persons") // подключение к готовой таблице
 public class Person {
     @Id
     Integer id;
@@ -22,6 +21,6 @@ public class Person {
     String name;
     LocalDate birthDate;
     @Setter
-    @Embedded//встроить Address в таблицу
+//    @Embedded//встроить Address в таблицу
     Address address;
 }

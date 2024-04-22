@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode(of = "id")
 @Entity
-//@Table(name = "persons") // подключение к готовой таблице
+@Table(name = "persons") // подключение к готовой таблице
+@Inheritance(strategy = InheritanceType.JOINED) //стратегия наследования
 public class Person {
     @Id
     Integer id;

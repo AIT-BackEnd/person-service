@@ -1,19 +1,21 @@
 package ait.cohort34.person.dao;
 
 import ait.cohort34.person.dto.CityPopulationDto;
+import ait.cohort34.person.model.Child;
+import ait.cohort34.person.model.Employee;
 import ait.cohort34.person.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {//можно указать CRUD (JPA вернет коллекцию)
 
-    // @Query("select p from Person  p where p.name=?1") //запрос на основе JPQL (Java Persistence Query Language
+    // @Query("select p from Person  p where p.name=?1") //запрос на основе JPQL (Java Persistence Query Language)
     Stream<Person> findByNameIgnoreCase(String name);
 
     // @Query("select p from Person  p where p.address.city=:cityName")
@@ -22,5 +24,10 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {//мо
     Stream<Person> findByBirthDateBetween(LocalDate from, LocalDate to);
 
     @Query("select new ait.cohort34.person.dto.CityPopulationDto(p.address.city,count (p)) from Person  p group by p.address.city order by count (p) desc")
-    List<CityPopulationDto>getCitiesPopulation();
+    List<CityPopulationDto> getCitiesPopulation();
+
+    Stream<Child> findChildrenBy();
+
+    Stream<Employee> findEmployeesBySalaryBetween(int min, int max);//(BigDecimal from, BigDecimal to)  использовать для зарплат
+
 }
